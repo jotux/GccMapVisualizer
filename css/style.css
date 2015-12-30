@@ -1,0 +1,38 @@
+
+text
+{
+    pointer-events: none;
+}
+
+#chart
+{
+    position: absolute;
+    display: block;
+    margin: auto;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+rect
+{
+    rx: 8px;
+    stroke: #EEE;
+    fill: #BBB;
+    fill-opacity: .7;
+}
+
+rect.base
+{
+    fill: white;
+}
+
+rect.parent
+{
+    cursor: pointer;
+    fill: peru;
+}
+
+rect.pack
+{
+    fill: #DDD;
+}

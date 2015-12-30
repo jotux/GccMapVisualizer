@@ -1,0 +1,30 @@
+{
+    "name": "",
+    "children":
+    [
+        {
+            "name": ".text",
+            "children":
+            [
+                {"name": "f1", "size": 5000},
+                {"name": "f2", "size": 1000}
+            ]
+        },
+        {
+            "name": ".data",
+            "children":
+            [
+                {"name": "var1", "size": 500},
+                {"name": "var2", "size": 100}
+            ]
+        },
+        {
+            "name": ".bss",
+            "children":
+            [
+                {"name": "g1","size": 1759},
+                {"name": "g2","size": 2165}
+            ]
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "name": "",
+    "children":
+    [
+        {
+            "name": ".text",
+            "children":
+            [
+                {"name": "main",  "address": 1, "size": 76},
+                {"name": "func1", "address": 2, "size": 24},
+                {"name": "func2", "address": 3, "size": 11},
+                {"name": "func3", "address": 4, "size": 76}
+            ]
+        },
+        {
+            "name": ".data",
+            "children":
+            [
+                {"name": "var1",   "address": 5, "size": 1},
+                {"name": "*pack*", "address": 6, "size": 3},
+                {"name": "var2",   "address": 7, "size": 4}
+            ]
+        },
+        {
+            "name": ".bss",
+            "children":
+            [
+                {"name": "my_var1", "address": 8,"size": 16},
+                {"name": "my_var2", "address": 9,"size": 28}
+            ]
+        }
+    ]
+}
