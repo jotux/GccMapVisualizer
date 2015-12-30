@@ -32,7 +32,7 @@ rect.parent
     fill: peru;
 }
 
-rect.pack
+rect.fill
 {
     fill: #DDD;
 }
