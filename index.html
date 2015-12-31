@@ -15,7 +15,7 @@
         <div id="body">
             <div class="container">
                 <div class="page-header">
-                    <h1>GCC MAP VISUALIZER <small>parse gcc map files to visually understand code usage</small></h1>
+                    <h1>GCC LINKER MAP VISUALIZER <small>parse gcc linker maps to visually understand code usage</small></h1>
                     <input class="btn btn-default btn-file" type="file" id="file" name="file" enctype="multipart/form-data" />
                 </div>
                 <div id="chart_container"></div>
@@ -32,19 +32,18 @@
                 reader.onload = function()
                 {
                     var mapData = ParseMapFile(this.result);
-                    var jsonData = JSON.parse(mapData);
-                    loadChart(jsonData);
+                    loadChart(mapData[0],mapData[1]);
                 }
                 reader.readAsText(file)
             }
-            function loadChart(root)
+            function loadChart(item_height,root)
             {
                 var w = 1120,
                     h = 800,
                     x = d3.scale.linear().range([0, w]),
                     y = d3.scale.linear().range([0, h]);
                 var partition = d3.layout.partition()
-                                  .sort([])// Don't sort!
+                                  .sort(function(a,b){return d3.ascending(a.index,b.index);})
                                   .value(function(d) { return d.size; });
                 d3.select("#chart").remove();
                 var vis = d3.select("#chart_container")
@@ -71,7 +70,7 @@
                  .attr("class", class_type);
 
                 g.append("svg:text")
-                 .attr("transform", transform)
+                 .attr("transform", textTransform)
                  .style("opacity", function(d) { return d.dx * ky > 12 ? 1 : 0; })
                  .text(function(d) { return d.size? (d.name + " @ " + d.address + " (" + d.size + ")") : d.name; })
 
@@ -80,16 +79,10 @@
 
                 function click(d)
                 {
-                    if (!d.children)
-                    {
-                        return;
-                    }
-
                     kx = (d.y ? w - 50 : w) / (1 - d.y);
                     ky = h / d.dx;
                     x.domain([d.y, 1]).range([d.y ? 50 : 0, w]);
                     y.domain([d.x, d.x + d.dx]);
-
                     var t = g.transition()
                              .duration(750)
                              .attr("transform", function(d) { return "translate(" + x(d.y) + "," + y(d.x) + ")"; });
@@ -99,7 +92,7 @@
                      .attr("height", function(d) { return d.dx * ky; });
 
                     t.select("text")
-                     .attr("transform", transform)
+                     .attr("transform", textTransform)
                      .style("opacity", function(d) { return d.dx * ky > 12 ? 1 : 0; });
 
                     d3.event.stopPropagation();
@@ -124,7 +117,7 @@
                         return "children";
                     }
                 }
-                function transform(d)
+                function textTransform(d)
                 {
                     return "translate(" + (8) + "," + (d.dx + 12) + ")";
                 }
